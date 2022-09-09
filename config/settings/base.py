@@ -60,7 +60,9 @@ CORS_ALLOW_HEADERS = (
 )
 
 LOCAL_APPS = [
-    # Add local apps
+    'apps.users.apps.UsersConfig',
+    'apps.orders.apps.OrdersConfig',
+    'apps.coupons.apps.CouponsConfig',
 ]
 
 DJANGO_APPS = [
@@ -158,3 +160,6 @@ USE_TZ = False
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 기본 사용자 모델 변경사항 설정
+AUTH_USER_MODEL = 'users.User'
