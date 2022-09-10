@@ -4,17 +4,38 @@ from apps.users.models import User
 
 
 class WantedData(models.Model):
-    pay_state  = models.ForeignKey("orders.PayState", on_delete=models.CASCADE)
-    buyer      = models.ForeignKey(User, on_delete=models.CASCADE)
-    quantity   = models.IntegerField()
-    price      = models.DecimalField(max_digits = 8, decimal_places = 2)
-    created_at = models.DateTimeField(auto_now_add=True)
+    delivery_state = models.ForeignKey("orders.DeliveryState", on_delete=models.CASCADE)
+    buyer          = models.ForeignKey(User, on_delete=models.CASCADE)
+    country_code   = models.ForeignKey("orders.CountryCode", on_delete=models.CASCADE)
+    quantity       = models.IntegerField()
+    price          = models.DecimalField(max_digits = 8, decimal_places = 2)
+    created_at     = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "wanted_data"
 
-class PayState(models.Model):
-    status_name = models.CharField(max_length=30)
+
+class DeliveryState(models.Model):
+    name = models.CharField(max_length=30)
 
     class Meta:
-        db_table = "pay_state"
+        db_table = "delivery_state"
+
+
+class CountryCode(models.Model):
+    country_code  = models.CharField(max_length=30)
+    country_dcode = models.CharField(max_length=30)
+    country_name  = models.CharField(max_length=50)
+
+    class Meta:
+        db_table = "country_code"
+
+
+class DeliveryInfo(models.Model):
+    countyr_code = models.ForeignKey("orders.CountryCode", on_delete=models.CASCADE)
+    user         = models.ForeignKey(User, on_delete=models.CASCADE)
+    city_name    = models.CharField(max_length=50, null=True)
+    zipx         = models.CharField(max_length=50)
+
+    class Meta:
+        db_table = "delivery_info"
