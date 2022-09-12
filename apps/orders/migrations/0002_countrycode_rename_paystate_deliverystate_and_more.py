@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('city_name', models.CharField(max_length=50, null=True)),
                 ('zipx', models.CharField(max_length=50)),
-                ('countyr_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='orders.countrycode')),
+                ('country_code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='orders.countrycode')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
