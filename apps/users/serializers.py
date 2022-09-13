@@ -7,24 +7,14 @@ from apps.orders.models import CountryCode, DeliveryInfo
 class ConutryCodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = CountryCode
-        fields = [
-            "pk",
-            "code",
-            "dcode",
-            "name"
-        ]
+        fields = [ "pk", "code", "dcode", "name" ]
 
 
 class DeliveryInfoSerializer(serializers.ModelSerializer):
     country_code = ConutryCodeSerializer(read_only=True)
     class Meta:
         model = DeliveryInfo
-        fields = [
-            'pk',
-            "city",
-            "zipx",
-            'country_code'
-            ]
+        fields = [ 'pk', "city", "zipx", 'country_code' ]
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -32,9 +22,12 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = [
-            "pk", 
-            "nickname", 
-            "name", 
-            "delivery_info"
-            ]
+        fields = [ "pk", "nickname", "name", "delivery_info" ]
+        read_only_fields = ("name", "password")
+
+
+class UserCouponSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [ "pk", "nickname", "name" ]
+        read_only_fields = ("name", "password")

@@ -1,10 +1,8 @@
 from django.db import models
 
-from apps.users.models import User
-
 
 class Coupon(models.Model):
-    coupon_type = models.ForeignKey("CouponType", on_delete=models.CASCADE)
+    coupon_type = models.ForeignKey("coupons.CouponType", on_delete=models.CASCADE)
     coupon_num  = models.IntegerField()
 
     class Meta:
@@ -19,9 +17,9 @@ class CouponType(models.Model):
 
 
 class CouponIssueList(models.Model):
-    user    = models.ForeignKey(User, on_delete=models.CASCADE)
-    counpon = models.ForeignKey("Coupon", on_delete=models.CASCADE)
-    is_use  = models.BooleanField(default=False)
+    user   = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    coupon = models.ForeignKey("coupons.Coupon", on_delete=models.CASCADE)
+    is_use = models.BooleanField(default=False)
 
     class Meta:
         db_table = "coupon_issue_list"
