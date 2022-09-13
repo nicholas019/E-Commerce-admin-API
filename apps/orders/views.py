@@ -25,3 +25,14 @@ class OrderListView(generics.ListAPIView):
         'buyer__nickname',
         'pay_state',
         'date' )
+
+
+class OrderDetailUpdateView(generics.RetrieveUpdateAPIView):
+    '''
+    주문내역에 대한 상세페이지 조회 및 배송상태 업데이트 API
+    배송상태 변경은 총 4가지로 가능(배송준비, 배송중, 배송완료, 주문취소)
+    '''
+    queryset = WantedData.objects.select_related('buyer', 'delivery_state').all()\
+        .prefetch_related('buyer__delivery_info','buyer__delivery_info__country_code')
+    serializer_class = OrderSerializer
+    lookup_field = "pk"
