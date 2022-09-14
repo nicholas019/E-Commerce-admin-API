@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.db.models import Q, Count
 
 from rest_framework import generics
 from rest_framework.filters import SearchFilter
@@ -20,10 +20,12 @@ class CouponListRegisterView(generics.ListCreateAPIView):
         페이지네이션 기능 추가 페이지당 게시글수는 20개
         타입별 사용횟수확인은 사용완료(search=1)와 쿠폰타입으로 필터를 하면 상단의 "count" 값으로 출력
     에러처리 : 발급쿠폰 등록시 사용된 쿠폰이면 "쿠폰번호가 이미 사용되었습니다." 에러메시지 반환
+
     
     '''
     serializer_class = CouponIssueSerializer
     pagination_class = PageNumberPagination
+
     filter_backends = [SearchFilter]
     search_fields = ('is_use', )
 
@@ -39,6 +41,7 @@ class CouponListRegisterView(generics.ListCreateAPIView):
             }
             queryset = queryset.filter(
                 Q(coupon__coupon_type__type_name__icontains = query_set[query])
+
             )
         return queryset
 
