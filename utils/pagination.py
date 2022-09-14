@@ -1,4 +1,4 @@
 from rest_framework.pagination import PageNumberPagination
 
-class CouponPageNumberPagination(PageNumberPagination):
+class PageNumberPagination(PageNumberPagination):
     page_size = 20
